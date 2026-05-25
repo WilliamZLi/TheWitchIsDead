@@ -198,11 +198,38 @@ select[name="system.species"] option {
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 8px;
   margin: 10px 0;
 }
 
+.danger .danger-value button {
+  width: 36px;
+  height: 36px;
+  background-color: #111;
+  color: #fff;
+  border: 2px solid #666;
+  border-radius: 5px;
+  font-size: 22px;
+  font-weight: bold;
+  line-height: 1;
+  cursor: pointer;
+  font-family: 'Crimson Text', serif;
+  transition: all 0.2s ease;
+  padding: 0;
+}
+
+.danger .danger-value button:hover {
+  border-color: red;
+  color: red;
+  transform: scale(1.08);
+}
+
+.danger .danger-value button:active {
+  transform: scale(0.95);
+}
+
 .danger .danger-value input[type="number"] {
-  width: 70px;
+  width: 60px;
   height: 50px;
   background-color: #111;
   color: red;
@@ -213,6 +240,13 @@ select[name="system.species"] option {
   text-align: center;
   font-family: 'Crimson Text', serif;
   transition: all 0.2s ease;
+  -moz-appearance: textfield;
+}
+
+.danger .danger-value input[type="number"]::-webkit-outer-spin-button,
+.danger .danger-value input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 .danger .danger-value input[type="number"]:hover,

@@ -25,6 +25,20 @@ export class TWIDActorSheet extends ActorSheet {
     html.off("click", ".roll-power");
     html.off("click", ".roll-species");
     html.off("click", ".roll-attribute");
+    html.off("click", ".danger-increment");
+    html.off("click", ".danger-decrement");
+
+    html.on("click", ".danger-increment", async ev => {
+      ev.preventDefault();
+      const current = Number(this.actor.system.danger) || 0;
+      await this.actor.update({ "system.danger": current + 1 });
+    });
+
+    html.on("click", ".danger-decrement", async ev => {
+      ev.preventDefault();
+      const current = Number(this.actor.system.danger) || 0;
+      await this.actor.update({ "system.danger": Math.max(0, current - 1) });
+    });
 
     // When species changes, attributes update automatically
     html.on("change", 'select[name="system.species"]', async ev => {

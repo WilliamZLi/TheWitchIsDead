@@ -45,16 +45,16 @@ export class TWIDActorSheet extends ActorSheet {
       const species = ev.currentTarget.value;
 
       const valuesBySpecies = {
-        fox:      { strength: 2, speed: 1, stealth: 1, cunning: 2 },
-        cat:      { strength: 1, speed: 2, stealth: 3, cunning: 0 },
-        toad:     { strength: 0, speed: 1, stealth: 2, cunning: 1 },
-        spider:   { strength: 0, speed: 1, stealth: 3, cunning: 2 },
-        owl:      { strength: 1, speed: 2, stealth: 1, cunning: 3 },
-        hare:     { strength: 0, speed: 3, stealth: 2, cunning: 0 },
-        capybara: { strength: 1, speed: 2, stealth: 1, cunning: 2 },
-        crow:     { strength: 1, speed: 1, stealth: 2, cunning: 2 },
-        dog:      { strength: 3, speed: 1, stealth: 0, cunning: 1 },
-        rat:      { strength: 0, speed: 2, stealth: 2, cunning: 1 }
+        fox:      { clever: 2, fierce: 2, sly: 1, quick: 1 },
+        cat:      { clever: 0, fierce: 1, sly: 3, quick: 2 },
+        toad:     { clever: 1, fierce: 0, sly: 2, quick: 1 },
+        spider:   { clever: 2, fierce: 0, sly: 3, quick: 1 },
+        owl:      { clever: 3, fierce: 1, sly: 1, quick: 2 },
+        hare:     { clever: 0, fierce: 0, sly: 2, quick: 3 },
+        capybara: { clever: 2, fierce: 1, sly: 1, quick: 2 },
+        crow:     { clever: 2, fierce: 1, sly: 2, quick: 1 },
+        dog:      { clever: 1, fierce: 3, sly: 0, quick: 1 },
+        rat:      { clever: 1, fierce: 0, sly: 2, quick: 2 }
       };
 
       const newValues = valuesBySpecies[species];
@@ -62,10 +62,10 @@ export class TWIDActorSheet extends ActorSheet {
       if (newValues) {
         await this.actor.update({
           "system.species": species,
-          "system.strength": newValues.strength,
-          "system.speed": newValues.speed,
-          "system.stealth": newValues.stealth,
-          "system.cunning": newValues.cunning
+          "system.clever": newValues.clever,
+          "system.fierce": newValues.fierce,
+          "system.sly": newValues.sly,
+          "system.quick": newValues.quick
         });
       } else {
         await this.actor.update({ "system.species": "" });
@@ -135,16 +135,16 @@ export class TWIDActorSheet extends ActorSheet {
         const chosenSpecies = speciesList[roll.total - 1];
 
         const valuesBySpecies = {
-          fox:      { strength: 2, speed: 1, stealth: 1, cunning: 2 },
-          cat:      { strength: 1, speed: 2, stealth: 3, cunning: 0 },
-          toad:     { strength: 0, speed: 1, stealth: 2, cunning: 1 },
-          spider:   { strength: 0, speed: 1, stealth: 3, cunning: 2 },
-          owl:      { strength: 1, speed: 2, stealth: 1, cunning: 3 },
-          hare:     { strength: 0, speed: 3, stealth: 2, cunning: 0 },
-          capybara: { strength: 1, speed: 2, stealth: 1, cunning: 2 },
-          crow:     { strength: 1, speed: 1, stealth: 2, cunning: 2 },
-          dog:      { strength: 3, speed: 1, stealth: 0, cunning: 1 },
-          rat:      { strength: 0, speed: 2, stealth: 2, cunning: 1 }
+          fox:      { clever: 2, fierce: 2, sly: 1, quick: 1 },
+          cat:      { clever: 0, fierce: 1, sly: 3, quick: 2 },
+          toad:     { clever: 1, fierce: 0, sly: 2, quick: 1 },
+          spider:   { clever: 2, fierce: 0, sly: 3, quick: 1 },
+          owl:      { clever: 3, fierce: 1, sly: 1, quick: 2 },
+          hare:     { clever: 0, fierce: 0, sly: 2, quick: 3 },
+          capybara: { clever: 2, fierce: 1, sly: 1, quick: 2 },
+          crow:     { clever: 2, fierce: 1, sly: 2, quick: 1 },
+          dog:      { clever: 1, fierce: 3, sly: 0, quick: 1 },
+          rat:      { clever: 1, fierce: 0, sly: 2, quick: 2 }
         };
 
         const newValues = valuesBySpecies[chosenSpecies];
@@ -152,10 +152,10 @@ export class TWIDActorSheet extends ActorSheet {
         if (newValues) {
           await this.actor.update({
             "system.species": chosenSpecies,
-            "system.strength": newValues.strength,
-            "system.speed": newValues.speed,
-            "system.stealth": newValues.stealth,
-            "system.cunning": newValues.cunning
+            "system.clever": newValues.clever,
+            "system.fierce": newValues.fierce,
+            "system.sly": newValues.sly,
+            "system.quick": newValues.quick
           });
         }
 

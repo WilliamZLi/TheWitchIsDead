@@ -3,10 +3,10 @@
     "types": ["character"],
     "templates": {
       "base": {
-        "strength": 0,
-        "speed": 0,
-        "stealth": 0,
-        "cunning": 0,
+        "clever": 0,
+        "fierce": 0,
+        "sly": 0,
+        "quick": 0,
         "power": "",
         "notes": "",
         "danger": 0

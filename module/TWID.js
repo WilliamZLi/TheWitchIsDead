@@ -51,7 +51,7 @@ export class TWIDActorSheet extends ActorSheet {
         spider:   { clever: 2, fierce: 0, sly: 3, quick: 1 },
         owl:      { clever: 3, fierce: 1, sly: 1, quick: 2 },
         hare:     { clever: 0, fierce: 0, sly: 2, quick: 3 },
-        capybara: { clever: 2, fierce: 1, sly: 1, quick: 2 },
+        magpie:   { clever: 2, fierce: 1, sly: 1, quick: 2 },
         crow:     { clever: 2, fierce: 1, sly: 2, quick: 1 },
         dog:      { clever: 1, fierce: 3, sly: 0, quick: 1 },
         rat:      { clever: 1, fierce: 0, sly: 2, quick: 2 }
@@ -128,7 +128,7 @@ export class TWIDActorSheet extends ActorSheet {
       Hooks.once("diceSoNiceRollComplete", async () => {
         const speciesList = [
           "fox", "cat", "toad", "spider",
-          "owl", "hare", "capybara", "crow",
+          "owl", "hare", "magpie", "crow",
           "dog", "rat"
         ];
 
@@ -141,13 +141,14 @@ export class TWIDActorSheet extends ActorSheet {
           spider:   { clever: 2, fierce: 0, sly: 3, quick: 1 },
           owl:      { clever: 3, fierce: 1, sly: 1, quick: 2 },
           hare:     { clever: 0, fierce: 0, sly: 2, quick: 3 },
-          capybara: { clever: 2, fierce: 1, sly: 1, quick: 2 },
+          magpie:   { clever: 2, fierce: 1, sly: 1, quick: 2 },
           crow:     { clever: 2, fierce: 1, sly: 2, quick: 1 },
           dog:      { clever: 1, fierce: 3, sly: 0, quick: 1 },
           rat:      { clever: 1, fierce: 0, sly: 2, quick: 2 }
         };
 
         const newValues = valuesBySpecies[chosenSpecies];
+
 
         if (newValues) {
           await this.actor.update({

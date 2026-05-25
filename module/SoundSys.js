@@ -2,8 +2,8 @@ export class SoundSystem {
   static currentAudio = null;
 
   /**
-   * Helper para reproducir un audio, deteniendo cualquier otro que estuviera sonando.
-   * @param {string} audioData - La data del audio en base64.
+   * Helper to play audio, stopping any other audio that was playing.
+   * @param {string} audioData - The audio data as base64.
    * @private
    */
   static _playAudio(audioData) {
@@ -14,11 +14,11 @@ export class SoundSystem {
 
     const audio = new Audio(audioData);
     this.currentAudio = audio;
-    audio.play().catch(e => console.error("TWID | Error al reproducir audio", e));
+    audio.play().catch(e => console.error("TWID | Error playing audio", e));
   }
 
   // -----------------------------
-  // Activar listeners para la hoja
+  // Activate listeners for the sheet
   // -----------------------------
   static activateListeners(html, actor) {
     const recordButton = html.find(".record-voice");
@@ -29,7 +29,7 @@ export class SoundSystem {
     playButton.on("click", ev => this.playLocalVoice(ev, actor));
     deleteButton.on("click", ev => this.deleteVoice(ev, actor, playButton, deleteButton));
 
-    // Mostrar botones si ya hay audio
+    // Show buttons if audio already exists
     const voiceData = actor.getFlag("TWID", "voiceData");
     if (voiceData) {
       playButton.show();
@@ -39,12 +39,12 @@ export class SoundSystem {
       deleteButton.hide();
     }
 
-    // Activar configuración de micrófono
+    // Activate microphone settings
     this.activateMicSettings(html, actor);
   }
 
   // -----------------------------
-  // Reproducir audio local del actor
+  // Play the actor's local audio
   // -----------------------------
   static playLocalVoice(ev, actor) {
     ev.preventDefault();
@@ -52,29 +52,29 @@ export class SoundSystem {
     if (voiceData) {
       this._playAudio(voiceData);
     } else {
-      ui.notifications.warn("No hay audio guardado para reproducir.");
+      ui.notifications.warn("No saved audio to play.");
     }
   }
 
   // -----------------------------
-  // Borrar audio del actor
+  // Delete the actor's audio
   // -----------------------------
   static async deleteVoice(ev, actor, playButton, deleteButton) {
     ev.preventDefault();
     await actor.unsetFlag("TWID", "voiceData");
     playButton.hide();
     deleteButton.hide();
-    ui.notifications.info("Audio del personaje eliminado.");
+    ui.notifications.info("Character audio deleted.");
   }
 
   // -----------------------------
-  // Grabar audio
+  // Record audio
   // -----------------------------
   static async recordVoice(ev, actor, playButton, deleteButton) {
     const button = $(ev.currentTarget);
     if (button.hasClass("recording")) return;
 
-    if (!window.MediaRecorder) return ui.notifications.error("Tu navegador no soporta la grabación de audio.");
+    if (!window.MediaRecorder) return ui.notifications.error("Your browser does not support audio recording.");
 
     const mimeTypes = [
       'audio/webm;codecs=opus',
@@ -83,13 +83,13 @@ export class SoundSystem {
       'audio/mp4'
     ];
     const mimeType = mimeTypes.find(type => MediaRecorder.isTypeSupported(type));
-    if (!mimeType) return ui.notifications.error("Ningún formato de grabación compatible.");
+    if (!mimeType) return ui.notifications.error("No compatible recording format.");
 
     try {
-      // Obtener micrófono seleccionado
+      // Get selected microphone
       const micId = await actor.getFlag("TWID", "voiceMicId");
-      const stream = await navigator.mediaDevices.getUserMedia({ 
-        audio: micId ? { deviceId: { exact: micId } } : true 
+      const stream = await navigator.mediaDevices.getUserMedia({
+        audio: micId ? { deviceId: { exact: micId } } : true
       });
 
       const recorder = new MediaRecorder(stream, { mimeType });
@@ -99,7 +99,7 @@ export class SoundSystem {
 
       recorder.onstop = () => {
         stream.getTracks().forEach(track => track.stop());
-        button.removeClass("recording").html('<i class="fas fa-microphone"></i> Grabar');
+        button.removeClass("recording").html('<i class="fas fa-microphone"></i> Record');
 
         if (audioChunks.length === 0) return;
 
@@ -111,15 +111,15 @@ export class SoundSystem {
           await actor.setFlag("TWID", "voiceData", base64String);
           playButton.show();
           deleteButton.show();
-          ui.notifications.info("Voz grabada y guardada en el personaje.");
+          ui.notifications.info("Voice recorded and saved to the character.");
         };
       };
 
       recorder.onerror = event => {
         console.error("TWID | MediaRecorder error:", event.error);
-        ui.notifications.error("Ocurrió un error durante la grabación.");
+        ui.notifications.error("An error occurred during recording.");
         stream.getTracks().forEach(track => track.stop());
-        button.removeClass("recording").html('<i class="fas fa-microphone"></i> Grabar');
+        button.removeClass("recording").html('<i class="fas fa-microphone"></i> Record');
       };
 
       button.addClass("recording").html('<i class="fas fa-microphone-slash"></i>');
@@ -130,14 +130,14 @@ export class SoundSystem {
       }, 2000);
 
     } catch (err) {
-      console.error("TWID | Error al acceder al micrófono:", err);
-      ui.notifications.error("No se pudo acceder al micrófono. Revisa los permisos en tu navegador.");
-      button.removeClass("recording").html('<i class="fas fa-microphone"></i> Grabar');
+      console.error("TWID | Error accessing microphone:", err);
+      ui.notifications.error("Could not access the microphone. Check the permissions in your browser.");
+      button.removeClass("recording").html('<i class="fas fa-microphone"></i> Record');
     }
   }
 
   // -----------------------------
-  // Reproducir audio a todos los jugadores
+  // Play audio to all players
   // -----------------------------
   static playActorSound(actor) {
     const voiceData = actor.getFlag("TWID", "voiceData");
@@ -152,7 +152,7 @@ export class SoundSystem {
   }
 
   // -----------------------------
-  // Configuración de Micrófono
+  // Microphone Settings
   // -----------------------------
   static activateMicSettings(html, actor) {
     let modal = html.find(".voice-settings-modal");
@@ -160,12 +160,12 @@ export class SoundSystem {
       const modalHtml = `
       <div class="voice-settings-modal" style="display:none;">
         <div class="voice-settings-content">
-          <h3>Configuración de Micrófono</h3>
-          <label for="voice-input">Selecciona el micrófono:</label>
+          <h3>Microphone Settings</h3>
+          <label for="voice-input">Select the microphone:</label>
           <select id="voice-input"></select>
           <div class="modal-buttons">
-            <button class="save-voice-settings">Guardar</button>
-            <button class="close-voice-settings">Cancelar</button>
+            <button class="save-voice-settings">Save</button>
+            <button class="close-voice-settings">Cancel</button>
           </div>
         </div>
       </div>`;
@@ -184,7 +184,7 @@ export class SoundSystem {
       micSelect.empty();
 
       mics.forEach((mic, index) => {
-        const option = `<option value="${mic.deviceId}">${mic.label || `Micrófono ${index+1}`}</option>`;
+        const option = `<option value="${mic.deviceId}">${mic.label || `Microphone ${index+1}`}</option>`;
         micSelect.append(option);
       });
 
@@ -198,7 +198,7 @@ export class SoundSystem {
       const micSelect = modal.find("#voice-input");
       const selectedMicId = micSelect.val();
       await actor.setFlag("TWID", "voiceMicId", selectedMicId);
-      ui.notifications.info("Micrófono seleccionado guardado en el personaje.");
+      ui.notifications.info("Selected microphone saved to the character.");
       modal.hide();
     });
   }

@@ -20,48 +20,48 @@ export class TWIDActorSheet extends ActorSheet {
   activateListeners(html) {
     super.activateListeners(html);
 
-    // Evitar listeners duplicados
+    // Avoid duplicate listeners
     html.off("change", 'select[name^="system."]');
-    html.off("click", ".tirar-poder");
-    html.off("click", ".tirar-raza");
-    html.off("click", ".tirar-atributo");
+    html.off("click", ".roll-power");
+    html.off("click", ".roll-species");
+    html.off("click", ".roll-attribute");
 
-    // 💡 Cuando cambia la raza, se actualizan los atributos automáticamente
-    html.on("change", 'select[name="system.raza"]', async ev => {
-      const raza = ev.currentTarget.value;
+    // When species changes, attributes update automatically
+    html.on("change", 'select[name="system.species"]', async ev => {
+      const species = ev.currentTarget.value;
 
-      const valoresPorRaza = {
-        zorro:     { fuerza: 2, agilidad: 1, sigilo: 1, inteligencia: 2 },
-        gato:      { fuerza: 1, agilidad: 2, sigilo: 3, inteligencia: 0 },
-        sapo:      { fuerza: 0, agilidad: 1, sigilo: 2, inteligencia: 1 },
-        araña:     { fuerza: 0, agilidad: 1, sigilo: 3, inteligencia: 2 },
-        búho:      { fuerza: 1, agilidad: 2, sigilo: 1, inteligencia: 3 },
-        liebre:    { fuerza: 0, agilidad: 3, sigilo: 2, inteligencia: 0 },
-        carpincho: { fuerza: 1, agilidad: 2, sigilo: 1, inteligencia: 2 },
-        cuervo:    { fuerza: 1, agilidad: 1, sigilo: 2, inteligencia: 2 },
-        perro:     { fuerza: 3, agilidad: 1, sigilo: 0, inteligencia: 1 },
-        rata:      { fuerza: 0, agilidad: 2, sigilo: 2, inteligencia: 1 }
+      const valuesBySpecies = {
+        fox:      { strength: 2, speed: 1, stealth: 1, cunning: 2 },
+        cat:      { strength: 1, speed: 2, stealth: 3, cunning: 0 },
+        toad:     { strength: 0, speed: 1, stealth: 2, cunning: 1 },
+        spider:   { strength: 0, speed: 1, stealth: 3, cunning: 2 },
+        owl:      { strength: 1, speed: 2, stealth: 1, cunning: 3 },
+        hare:     { strength: 0, speed: 3, stealth: 2, cunning: 0 },
+        capybara: { strength: 1, speed: 2, stealth: 1, cunning: 2 },
+        crow:     { strength: 1, speed: 1, stealth: 2, cunning: 2 },
+        dog:      { strength: 3, speed: 1, stealth: 0, cunning: 1 },
+        rat:      { strength: 0, speed: 2, stealth: 2, cunning: 1 }
       };
 
-      const nuevosValores = valoresPorRaza[raza];
+      const newValues = valuesBySpecies[species];
 
-      if (nuevosValores) {
+      if (newValues) {
         await this.actor.update({
-          "system.raza": raza,
-          "system.fuerza": nuevosValores.fuerza,
-          "system.agilidad": nuevosValores.agilidad,
-          "system.sigilo": nuevosValores.sigilo,
-          "system.inteligencia": nuevosValores.inteligencia
+          "system.species": species,
+          "system.strength": newValues.strength,
+          "system.speed": newValues.speed,
+          "system.stealth": newValues.stealth,
+          "system.cunning": newValues.cunning
         });
       } else {
-        await this.actor.update({ "system.raza": "" });
+        await this.actor.update({ "system.species": "" });
       }
 
       this.render(false);
     });
 
-    // 🎲 Lanzar dado d10 al hacer clic en el botón del dado de poder
-    html.on("click", ".tirar-poder", async ev => {
+    // Roll d10 when the power die button is clicked
+    html.on("click", ".roll-power", async ev => {
       ev.preventDefault();
 
       const roll = new Roll("1d10");
@@ -69,38 +69,38 @@ export class TWIDActorSheet extends ActorSheet {
 
       await roll.toMessage({
         speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-        flavor: "Lanzando el poder aleatorio..."
+        flavor: "Rolling for random power..."
       });
 
       Hooks.once("diceSoNiceRollComplete", async () => {
-        const poderes = [
-          "Mano invisible.",
-          "Conjurar luz.",
-          "Hablar humano (1d10 palabras).",
-          "Abrir / Cerrar.",
-          "Conjurar la cena.",
-          "Crear fuego.",
-          "Limpiar, ordenar, arreglar.",
-          "Crecimiento de plantas.",
-          "Distraer / Confundir.",
-          "Hacer que un libro se lea en voz alta."
+        const powers = [
+          "Invisible hand.",
+          "Conjure light.",
+          "Speak human (1d10 words).",
+          "Open / Close.",
+          "Conjure dinner.",
+          "Create fire.",
+          "Clean, tidy, mend.",
+          "Plant growth.",
+          "Distract / Confuse.",
+          "Make a book read itself aloud."
         ];
 
-        const poderElegido = poderes[roll.total - 1];
+        const chosenPower = powers[roll.total - 1];
 
-        await this.actor.update({ "system.poderAleatorio": poderElegido });
+        await this.actor.update({ "system.randomPower": chosenPower });
 
         ChatMessage.create({
           speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-          content:`<div class="poder-revelado"><b>Tu poder es:</b> ${poderElegido}</div>`
+          content:`<div class="power-revealed"><b>Your power is:</b> ${chosenPower}</div>`
         });
 
         this.render(false);
       });
     });
 
-    // 🎲 Lanzar dado d10 al hacer clic en el botón del dado de raza
-    html.on("click", ".tirar-raza", async ev => {
+    // Roll d10 when the species die button is clicked
+    html.on("click", ".roll-species", async ev => {
       ev.preventDefault();
 
       const roll = new Roll("1d10");
@@ -108,50 +108,50 @@ export class TWIDActorSheet extends ActorSheet {
 
       await roll.toMessage({
         speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-        flavor: "Lanzando la raza aleatoria..."
+        flavor: "Rolling for random species..."
       });
 
       Hooks.once("diceSoNiceRollComplete", async () => {
-        const razas = [
-          "zorro", "gato", "sapo", "araña",
-          "búho", "liebre", "carpincho", "cuervo",
-          "perro", "rata"
+        const speciesList = [
+          "fox", "cat", "toad", "spider",
+          "owl", "hare", "capybara", "crow",
+          "dog", "rat"
         ];
 
-        const razaElegida = razas[roll.total - 1];
+        const chosenSpecies = speciesList[roll.total - 1];
 
-        const valoresPorRaza = {
-          zorro:     { fuerza: 2, agilidad: 1, sigilo: 1, inteligencia: 2 },
-          gato:      { fuerza: 1, agilidad: 2, sigilo: 3, inteligencia: 0 },
-          sapo:      { fuerza: 0, agilidad: 1, sigilo: 2, inteligencia: 1 },
-          araña:     { fuerza: 0, agilidad: 1, sigilo: 3, inteligencia: 2 },
-          búho:      { fuerza: 1, agilidad: 2, sigilo: 1, inteligencia: 3 },
-          liebre:    { fuerza: 0, agilidad: 3, sigilo: 2, inteligencia: 0 },
-          carpincho: { fuerza: 1, agilidad: 2, sigilo: 1, inteligencia: 2 },
-          cuervo:    { fuerza: 1, agilidad: 1, sigilo: 2, inteligencia: 2 },
-          perro:     { fuerza: 3, agilidad: 1, sigilo: 0, inteligencia: 1 },
-          rata:      { fuerza: 0, agilidad: 2, sigilo: 2, inteligencia: 1 }
+        const valuesBySpecies = {
+          fox:      { strength: 2, speed: 1, stealth: 1, cunning: 2 },
+          cat:      { strength: 1, speed: 2, stealth: 3, cunning: 0 },
+          toad:     { strength: 0, speed: 1, stealth: 2, cunning: 1 },
+          spider:   { strength: 0, speed: 1, stealth: 3, cunning: 2 },
+          owl:      { strength: 1, speed: 2, stealth: 1, cunning: 3 },
+          hare:     { strength: 0, speed: 3, stealth: 2, cunning: 0 },
+          capybara: { strength: 1, speed: 2, stealth: 1, cunning: 2 },
+          crow:     { strength: 1, speed: 1, stealth: 2, cunning: 2 },
+          dog:      { strength: 3, speed: 1, stealth: 0, cunning: 1 },
+          rat:      { strength: 0, speed: 2, stealth: 2, cunning: 1 }
         };
 
-        const nuevosValores = valoresPorRaza[razaElegida];
+        const newValues = valuesBySpecies[chosenSpecies];
 
-        if (nuevosValores) {
+        if (newValues) {
           await this.actor.update({
-            "system.raza": razaElegida,
-            "system.fuerza": nuevosValores.fuerza,
-            "system.agilidad": nuevosValores.agilidad,
-            "system.sigilo": nuevosValores.sigilo,
-            "system.inteligencia": nuevosValores.inteligencia
+            "system.species": chosenSpecies,
+            "system.strength": newValues.strength,
+            "system.speed": newValues.speed,
+            "system.stealth": newValues.stealth,
+            "system.cunning": newValues.cunning
           });
         }
 
-        // Actualizamos el select en el formulario
-        const selectRaza = html.find('select[name="system.raza"]');
-        selectRaza.val(razaElegida);
+        // Update the select in the form
+        const speciesSelect = html.find('select[name="system.species"]');
+        speciesSelect.val(chosenSpecies);
 
         ChatMessage.create({
           speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-          content: `<div class="raza-revelada"><b>Tu raza es:</b> ${razaElegida}</div>`
+          content: `<div class="species-revealed"><b>Your species is:</b> ${chosenSpecies}</div>`
         });
 
         this.render(false);
@@ -159,61 +159,61 @@ export class TWIDActorSheet extends ActorSheet {
     });
 
 
-    // 🎲 Tiradas de atributos al presionar el nombre
-    html.on("click", ".tirar-atributo", async ev => {
+    // Attribute rolls when clicking the name
+    html.on("click", ".roll-attribute", async ev => {
       ev.preventDefault();
 
       const container = ev.currentTarget.closest(".attr");
-      const key = container.dataset.attr; // "fuerza", "agilidad", etc.
-      const valor = parseInt(container.querySelector(".valor").textContent);
+      const key = container.dataset.attr; // "strength", "speed", etc.
+      const value = parseInt(container.querySelector(".attr-value").textContent);
 
-      // Creamos la tirada con el valor del atributo sumado
-      const roll = new Roll(`1d10 + ${valor}`);
+      // Build the roll with the attribute value added
+      const roll = new Roll(`1d10 + ${value}`);
       await roll.evaluate({ async: true });
 
-      // Enviar al chat como tirada oficial, para que salga en Dice Tray
+      // Send to chat as an official roll so it appears in Dice Tray
       await roll.toMessage({
         speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-        flavor: `Tirada de <b>${key}</b>`,
-        rollMode: "roll" // Asegura que sea una tirada normal
+        flavor: `<b>${key}</b> roll`,
+        rollMode: "roll" // Ensure it's a normal roll
       });
 
-      // 🔊 Reproducir sonido del personaje si existe
+      // Play the character's sound if present
       SoundSystem.playActorSound(this.actor);
     });
 
-    html.on("click", ".tirar-magia", async ev => {
+    html.on("click", ".roll-magic", async ev => {
       ev.preventDefault();
 
-      // Tomamos el poder elegido desde el actor
-      const poderElegido = this.actor.system.poderAleatorio || "ninguno";
+      // Take the chosen power from the actor
+      const chosenPower = this.actor.system.randomPower || "none";
 
       const roll = new Roll("1d10");
       await roll.evaluate({ async: true });
 
       await roll.toMessage({
         speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-        flavor: `Magia: ${poderElegido}`,
+        flavor: `Magic: ${chosenPower}`,
         rollMode: "roll"
       });
     });
 
-    // 🎙️ Sistema de grabación y reproducción de voz
+    // Voice recording and playback system
     SoundSystem.activateListeners(html, this.actor);
   }
 }
 
 Hooks.once("init", function() {
-  console.log("TWID | Iniciando sistema The Witch is Dead");
+  console.log("TWID | Initializing The Witch is Dead system");
   Actors.unregisterSheet("core", ActorSheet);
   Actors.registerSheet("TWID", TWIDActorSheet, { makeDefault: true });
 
-  // Inicializar el listener del socket para el audio
+  // Initialize the socket listener for audio
   SoundSystem.initializeSocketListener();
 
-// en module/TWID.js o tu JS principal
+// in module/TWID.js or your main JS
 Hooks.once('ready', () => {
-  // Cargar CSS del chat
+  // Load chat CSS
   const link = document.createElement('link');
   link.rel = 'stylesheet';
   link.href = 'systems/TWID/css/chat-message.css';

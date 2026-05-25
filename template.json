@@ -1,15 +1,15 @@
 {
   "Actor": {
-    "types": ["personaje"],
+    "types": ["character"],
     "templates": {
       "base": {
-        "fuerza": 0,
-        "agilidad": 0,
-        "sigilo": 0,
-        "inteligencia": 0,
-        "poder": "",
-        "notas": "",
-        "peligro": [false, false, false, false, false]
+        "strength": 0,
+        "speed": 0,
+        "stealth": 0,
+        "cunning": 0,
+        "power": "",
+        "notes": "",
+        "danger": [false, false, false, false, false]
       }
     }
   }

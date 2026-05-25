@@ -48,56 +48,56 @@
   text-align: center;
 }
 
-.char-info select[name="system.raza"] {
+.char-info select[name="system.species"] {
   background: transparent;
-  width: 320px;   
+  width: 320px;
   color: #fff;
   border: 2px solid #666;
   font-size: 1.5em;
   margin: 15px;
-  padding: 1px 1px;      
-  border-radius: 6px;     
-  box-sizing: content-box; 
+  padding: 1px 1px;
+  border-radius: 6px;
+  box-sizing: content-box;
 }
 
-select[name="system.raza"] option {
-  background-color: #111;  
-  color: #fff;             
+select[name="system.species"] option {
+  background-color: #111;
+  color: #fff;
 }
 
-/* Contenedor general del bloque de poder */
-.poder-aleatorio {
+/* General container for the power block */
+.random-power {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 8px;
 }
 
-/* Input del poder */
-.poder-aleatorio input {
+/* Power input */
+.random-power input {
   width: 320px;
   box-sizing: border-box;
 }
 
-/* Contenedor de las dos líneas de texto + dados */
-.dados-container {
+/* Container for the two lines of text + dice */
+.dice-container {
   display: flex;
   flex-direction: row;
   width: 320px;
   justify-content: space-between;
 }
 
-/* Cada grupo (raza o poder) */
-.raza-aleatoria,
-.poder-opcion {
+/* Each group (species or power) */
+.random-species,
+.power-option {
   display: flex;
   align-items: center;
   gap: 6px;
 }
 
-/* Dados (imágenes) */
-.tirar-poder,
-.tirar-raza {
+/* Dice (images) */
+.roll-power,
+.roll-species {
   width: 40px;
   height: 40px;
   object-fit: contain;
@@ -106,22 +106,22 @@ select[name="system.raza"] option {
   transition: transform 0.15s ease, filter 0.15s ease;
 }
 
-/* Hover y click */
-.tirar-poder:hover,
-.tirar-raza:hover {
+/* Hover and click */
+.roll-power:hover,
+.roll-species:hover {
   transform: scale(1.1);
 }
 
-.tirar-poder:active,
-.tirar-raza:active {
+.roll-power:active,
+.roll-species:active {
   transform: scale(0.95);
 }
 
 /* ------------------------------------------------------
-   Sección de atributos
+   Attributes section
 ------------------------------------------------------ */
 .attributes {
-  flex: 0 0 50%;  /* ancho reducido a ~45% */
+  flex: 0 0 50%;  /* width reduced to ~45% */
   background: #111;
   padding: 15px;
   border-radius: 8px;
@@ -129,13 +129,13 @@ select[name="system.raza"] option {
 }
 
 .attributes .attr {
-  display: flex;              
-  justify-content: space-between; 
-  align-items: center;       
-  padding: 4px 0;            
-  border-bottom: 1px solid #222; 
-  cursor: pointer;           
-  transition: transform 0.2s, color 0.2s; 
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 0;
+  border-bottom: 1px solid #222;
+  cursor: pointer;
+  transition: transform 0.2s, color 0.2s;
 }
 
 .attributes .attr:hover {
@@ -147,14 +147,14 @@ select[name="system.raza"] option {
   border-bottom: none;
 }
 
-.attributes .attr .valor {
+.attributes .attr .attr-value {
   min-width: 30px;
   text-align: right;
   font-weight: bold;
 }
 
 /* ------------------------------------------------------
-   Fila de stats: atributos + peligro/magia
+   Stats row: attributes + danger/magic
 ------------------------------------------------------ */
 .stats-row {
   display: flex;
@@ -164,24 +164,24 @@ select[name="system.raza"] option {
   margin-top: 20px;
 }
 
-/* Sección de Peligro + Magia */
-.peligro-magia {
-  flex: 1;                     /* ocupa el resto del espacio */
+/* Danger + Magic section */
+.danger-magic {
+  flex: 1;                     /* takes the remaining space */
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
-.peligro {
+.danger {
   background: #111;
   padding: 15px;
   border-radius: 8px;
   border: 2px solid #333;
 }
 
-.peligro h2,
-.peligro,
-.notas h2 {
+.danger h2,
+.danger,
+.notes h2 {
   background-color: #111;
   color: #fff;
   padding: 5px;
@@ -189,12 +189,12 @@ select[name="system.raza"] option {
   border: 1px solid #333;
   text-align: center;
 
-  font-family: 'Crimson Text', serif; /* fuente elegante y clásica */
-  font-weight: 600;             /* un poco más gruesa */
-  font-size: 1.2em;             /* ligeramente más grande */
+  font-family: 'Crimson Text', serif; /* elegant, classic font */
+  font-weight: 600;             /* slightly heavier */
+  font-size: 1.2em;             /* slightly larger */
 }
 
-.peligro .dots input[type="checkbox"] {
+.danger .dots input[type="checkbox"] {
   appearance: none;
   width: 25px;
   height: 25px;
@@ -207,7 +207,7 @@ select[name="system.raza"] option {
   transition: all 0.2s ease;
 }
 
-.peligro .dots input[type="checkbox"]:checked::after {
+.danger .dots input[type="checkbox"]:checked::after {
   content: "✖";
   color: red;
   font-size: 20px;
@@ -217,12 +217,12 @@ select[name="system.raza"] option {
   transform: translate(-50%, -58%);
 }
 
-.peligro .dots input[type="checkbox"]:hover {
+.danger .dots input[type="checkbox"]:hover {
   border-color: red;
 }
 
 /* ------------------------------------------------------
-   Atributos internos (labels y inputs)
+   Internal attribute rows (labels and inputs)
 ------------------------------------------------------ */
 .attr {
   display: flex;
@@ -247,15 +247,15 @@ select[name="system.raza"] option {
 }
 
 /* ------------------------------------------------------
-   Notas
+   Notes
 ------------------------------------------------------ */
-.notas textarea {
+.notes textarea {
   margin-top: 2px;
   height: 100px;
   resize: none;
 }
 
-.notas h2 {
+.notes h2 {
   margin-top: 10px;
 }
 
@@ -270,72 +270,72 @@ textarea {
 }
 
 /* ------------------------------------------------------
-   Magia
+   Magic
 ------------------------------------------------------ */
-.magia-row {
+.magic-row {
   display: flex;
-  align-items: center;       /* centra verticalmente */
-  justify-content: center;   /* centra horizontalmente dentro del espacio */
-  gap: 12px;                 /* separa texto e imagen */
+  align-items: center;       /* vertical centering */
+  justify-content: center;   /* horizontal centering within the space */
+  gap: 12px;                 /* spacing between text and image */
   margin-top: 10px;
 }
 
-.magia-row .magia-text {
+.magic-row .magic-text {
   font-size: 1.5em;
-  font-weight: 700;          /* más gruesa */
+  font-weight: 700;          /* heavier */
   color: #fff;
-  font-family: 'Crimson Text', serif;  /* más moderna y legible */
+  font-family: 'Crimson Text', serif;  /* more modern and readable */
 }
 
-.magia-row img {
-  width: 40px;               /* dado un poco más grande */
+.magic-row img {
+  width: 40px;               /* slightly larger die */
   height: 40px;
   cursor: pointer;
   transition: transform 0.2s;
 }
 
-.magia-row img:hover {
+.magic-row img:hover {
   transform: scale(1.1);
 }
 
 /* ------------------------------------------------------
-    Notas de Voz
+    Voice Notes
 ------------------------------------------------------ */
 
 .voice-controls {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;              
+  gap: 12px;
   margin-top: 10px;
 }
 
 
 
-/* Modal de configuración de micrófono */
+/* Microphone settings modal */
 .voice-settings-modal {
-  display: none;                
-  position: fixed;              
-  top: 0;                       
+  display: none;
+  position: fixed;
+  top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.75); /* más oscuro para contraste */
-  z-index: 9999;                
-  justify-content: center;      
-  align-items: center;          
+  background: rgba(0, 0, 0, 0.75); /* darker for contrast */
+  z-index: 9999;
+  justify-content: center;
+  align-items: center;
   display: flex;
 }
 
-/* Contenido de la ventana emergente */
+/* Popup window content */
 .voice-settings-content {
-  background: #111;             /* fondo oscuro como la hoja */
-  color: #eee;     /* Letras del titulo */
+  background: #111;             /* dark background matching the sheet */
+  color: #eee;     /* title text */
   padding: 20px;
   border-radius: 10px;
-  width: 400px;                 /* más ancho para ver bien los micrófonos */
+  width: 400px;                 /* wider so microphones are visible */
   text-align: center;
-  box-shadow: 0 0 20px #000;  /* sombra al borde de la ventana emergente */
+  box-shadow: 0 0 20px #000;  /* shadow around the popup */
   font-family: 'Crimson Text', serif;
 }
 
@@ -350,8 +350,8 @@ textarea {
   padding: 5px;
   border-radius: 5px;
   border: 1px solid #555;
-  background: #e6e3d9; /* Fondo de la caja antes de emerger */
-  color: #000000;   /* Letras de la lista de microfonos */
+  background: #e6e3d9; /* background of the box before opening */
+  color: #000000;   /* text of the microphone list */
 }
 
 
@@ -365,7 +365,7 @@ textarea {
   padding: 5px 10px;
   border-radius: 5px;
   border: 1px solid #555;
-  background: #333;  /* Color botones */
+  background: #333;  /* button color */
   color: #fff;
   cursor: pointer;
   transition: all 0.2s;
@@ -375,4 +375,3 @@ textarea {
   background: #444;
   border-color: #777;
 }
-

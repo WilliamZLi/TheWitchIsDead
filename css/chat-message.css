@@ -1,16 +1,16 @@
-/* ===== FUENTE GOTICA ===== */
+/* ===== GOTHIC FONT ===== */
 
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=UnifrakturCook:wght@700&display=swap');
 
 
-/* ===== MENSAJE DE CHAT ===== */
+/* ===== CHAT MESSAGE ===== */
 
 .chat-message {
 
   background: #2a2a2a;
 
   border: 2px solid #5a0000;
-  border-left: 3px solid #5a0000;   /* linea roja sutil */
+  border-left: 3px solid #5a0000;   /* subtle red line */
 
   border-radius: 6px;
 
@@ -25,7 +25,7 @@
 }
 
 
-/* ===== ENCABEZADO DEL MENSAJE ===== */
+/* ===== MESSAGE HEADER ===== */
 
 .chat-message .message-header {
   font-family: 'Cinzel', serif;
@@ -34,7 +34,7 @@
 }
 
 
-/* ===== NOMBRE DEL JUGADOR ===== */
+/* ===== PLAYER NAME ===== */
 
 .chat-message .message-sender {
 
@@ -49,7 +49,7 @@
 }
 
 
-/* ===== TITULO DE LA TIRADA ===== */
+/* ===== ROLL TITLE ===== */
 
 .chat-message .flavor-text {
 
@@ -64,7 +64,7 @@
 }
 
 
-/* ===== OCULTAR FORMULA ===== */
+/* ===== HIDE FORMULA ===== */
 
 .dice-formula,
 .dice-tooltip,
@@ -73,7 +73,7 @@
 }
 
 
-/* ===== CONTENEDOR DEL RESULTADO ===== */
+/* ===== RESULT CONTAINER ===== */
 
 .dice-roll {
 
@@ -83,7 +83,7 @@
 }
 
 
-/* ===== RESULTADO DEL DADO ===== */
+/* ===== DICE RESULT ===== */
 
 .dice-total {
 
@@ -117,7 +117,7 @@
 }
 
 
-/* ===== SIMBOLOS ARCANOS EN ESQUINAS ===== */
+/* ===== ARCANE SYMBOLS IN CORNERS ===== */
 
 .dice-total::before {
 
@@ -146,7 +146,7 @@
 }
 
 
-/* ===== EFECTO HOVER ===== */
+/* ===== HOVER EFFECT ===== */
 
 .dice-total:hover {
 
@@ -160,7 +160,7 @@
 }
 
 
-/* ===== ANIMACION DE APARICION ===== */
+/* ===== APPEARANCE ANIMATION ===== */
 
 @keyframes diceAppear {
 
@@ -177,7 +177,7 @@
 }
 
 
-/* ===== FORMULA DEL DADO AL MOSTRARSE ===== */
+/* ===== DIE FORMULA WHEN SHOWN ===== */
 
 .show-formula .dice-formula {
 
@@ -208,11 +208,11 @@
 
 
 /* =========================================
-   REVELACION DE RAZA / PODER
+   SPECIES / POWER REVEAL
 ========================================= */
 
-.poder-revelado,
-.raza-revelada{
+.power-revealed,
+.species-revealed{
 
   text-align:center;
 
@@ -237,10 +237,10 @@
 
 
 
-/* palabra clave */
+/* keyword */
 
-.poder-revelado b,
-.raza-revelada b{
+.power-revealed b,
+.species-revealed b{
 
   color:#c00000;
 

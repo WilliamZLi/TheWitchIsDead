@@ -88,16 +88,16 @@ export class TWIDActorSheet extends ActorSheet {
 
       Hooks.once("diceSoNiceRollComplete", async () => {
         const powers = [
-          "Invisible hand.",
-          "Conjure light.",
-          "Speak human (1d10 words).",
-          "Open / Close.",
-          "Conjure dinner.",
-          "Create fire.",
-          "Clean, tidy, mend.",
-          "Plant growth.",
-          "Distract / Confuse.",
-          "Make a book read itself aloud."
+          "Unseen Hand.",
+          "Conjure Light.",
+          "Speak Human.",
+          "Lock/Unlock, Open/Close.",
+          "Conjure Dinner.",
+          "Make Flame.",
+          "Tidy, Clean and Mend.",
+          "Plant Growth.",
+          "Distract/Confuse.",
+          "Make Book Read Itself Aloud."
         ];
 
         const chosenPower = powers[roll.total - 1];

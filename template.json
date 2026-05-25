@@ -9,7 +9,7 @@
         "cunning": 0,
         "power": "",
         "notes": "",
-        "danger": [false, false, false, false, false]
+        "danger": 0
       }
     }
   }

@@ -86,10 +86,8 @@
 
         <section class="danger">
           <h2>Danger points</h2>
-          <div class="dots">
-            <input type="checkbox" name="system.danger.0" {{#if system.danger.[0]}}checked{{/if}} />
-            <input type="checkbox" name="system.danger.1" {{#if system.danger.[1]}}checked{{/if}} />
-            <input type="checkbox" name="system.danger.2" {{#if system.danger.[2]}}checked{{/if}} />
+          <div class="danger-value">
+            <input type="number" name="system.danger" value="{{system.danger}}" min="0" data-dtype="Number" />
           </div>
         </section>
 
